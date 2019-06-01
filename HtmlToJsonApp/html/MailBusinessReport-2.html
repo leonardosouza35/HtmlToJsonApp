@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontual Money Transfer </title>
+    <!-- Latest compiled and minified CSS -->
+
+
+    <style>
+        tr:hover td {
+            background: #f1e7e7;
+        }
+
+        body {
+            font-family: "Calibri",sans-serif;
+            font-size: 8pt;
+        }
+
+        td {
+            height: 14.5pt;
+            width: 220px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width:200%;
+        }
+
+        .transactions-cell-title {
+            font-weight: bold;
+            text-align: center;
+            border-top: solid #5B9BD5 1.0pt;
+            border-left: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+
+        .sendamound-cell-title {
+            font-weight: bold;
+            text-align: center;
+            border-top: solid #5B9BD5 1.0pt;
+            border-right: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .title-cell {
+            border-right: solid #5B9BD5 1.0pt;
+            border-left: solid #5B9BD5 1.0pt;
+            border-bottom: solid #a4b2b4 0.2pt;
+            white-space: nowrap;
+        }
+
+        .transactions-cell {
+            border-left: solid #5B9BD5 1.0pt;
+            border-bottom: solid #a4b2b4 0.2pt;
+            white-space: nowrap;
+            background-color: #f1e7e7;
+            font-weight: bold;
+
+        }
+
+        .sendamound-cell {
+            border-right: solid #5B9BD5 1.0pt;
+            border-bottom: solid #a4b2b4 0.2pt;
+            white-space: nowrap;
+        }
+
+        .table-title {
+            border: solid #5B9BD5 1.0pt;
+            background: #DCE6F1;
+            padding: 0in 5.4pt 0in 5.4pt;
+            text-align: left;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .transactions-amount {
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .table-total {
+            border-top: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .table-total-border-right {
+            border-right: solid #5B9BD5 1.0pt;
+            border-top: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .table-total-border-left {
+            border-left: solid #5B9BD5 1.0pt;
+            border-top: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .table-total-border-full {
+            border: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .table-border-full {
+            border: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .table-border-left {
+            border-left: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .table-border-left-right {
+            border-left: solid #5B9BD5 1.0pt;
+            border-right: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .table-border-right {
+            border-right: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .table-border-top {
+            border-top: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .table-border-bottom {
+            border-bottom: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .transactions-amount-table-border-full {
+            font-weight: bold;
+            text-align: center;
+            border: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .transactions-amount-table-border-left {
+            font-weight: bold;
+            text-align: center;
+            border-left: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .transactions-amount-table-border-right {
+            font-weight: bold;
+            text-align: center;
+            border-right: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .transactions-amount-table-border-top {
+            font-weight: bold;
+            text-align: center;
+            border-top: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .transactions-amount-table-border-bottom {
+            font-weight: bold;
+            text-align: center;
+            border-bottom: solid #5B9BD5 1.0pt;
+            white-space: nowrap;
+        }
+
+        .values-right {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .table-total-transactions {
+            border-left: solid #5B9BD5 1.0pt;
+            border-top: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .table-total-send-amound {
+            border-right: solid #5B9BD5 1.0pt;
+            border-top: solid #5B9BD5 1.0pt;
+            border-bottom: solid #5B9BD5 1.0pt;
+            background: #B8CCE4;
+            font-weight: bold;
+            text-align: right;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <table>
+        <tbody>
+
+
+            
+
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">1 - CALIFORNIA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Margotour</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">27</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 24,661.14</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Bella Brasil Travel LLC</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">73</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 46,656.04</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Hi Brazil Market</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">154</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 63,417.70</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pontual Money Transfer</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">32</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 172,881.92</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">RC Business Services</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">18</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 28,865.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Bossa Nova Brasil</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">865</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 538,009.09</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Edu Remessas</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">16</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 14,483.27</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Tucano&#39;s Travel, Inc.</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">157</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 59,355.54</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">14</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 1,825.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Supermercado Brazil, Inc.</td>
+                            <td class="title-cell">CALIFORNIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">2</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 1,336.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">TEST 2 Agent</td>
+                            <td class="title-cell"> CALIFORNIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Test Agency</td>
+                            <td class="title-cell"> CALIFORNIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">America Latina Services</td>
+                            <td class="title-cell"> CALIFORNIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 1358</td>
+                            <td class="table-total-send-amound">$ 951,490.70</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">2 - CONNECTICUT</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Bonanza LLC</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">91</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 33,146.81</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">LS Graphics LLC</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">35</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 8,332.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Boa Viagem Travel</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">23</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 4,696.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pague Menos Supermarket LLC</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">796</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 238,541.70</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pontual Money Transfer</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Beta Global Services LLC</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">74</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 21,246.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Bom Preco Supermarket</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">200</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 55,316.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">The Allen Agency LLC</td>
+                            <td class="title-cell">CONNECTICUT</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">10</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 6,018.76</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Epoch Learning Center LLC</td>
+                            <td class="title-cell"> CONNECTICUT</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Eddie&#39;s Multi-Services LLC</td>
+                            <td class="title-cell"> CONNECTICUT</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 1777</td>
+                            <td class="table-total-send-amound">$ 594,851.81</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">3 - FLORIDA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">JP&#39;s Home Accents</td>
+                            <td class="title-cell">FLORIDA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">23</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 9,211.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Aqua Bay Insurance Services Inc.</td>
+                            <td class="title-cell">FLORIDA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">29</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 33,687.45</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Xpress Market</td>
+                            <td class="title-cell">FLORIDA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">400</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 178,129.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Absolute Tours &amp; Travel Inc</td>
+                            <td class="title-cell">FLORIDA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">11</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 1,085.51</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">DDA Sales &amp; Marketing Corp  </td>
+                            <td class="title-cell">FLORIDA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">1</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 293.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> FLORIDA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brazil Express Money Transfer </td>
+                            <td class="title-cell"> FLORIDA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Xpress Meat Market</td>
+                            <td class="title-cell"> FLORIDA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Eskelsen Services LLC</td>
+                            <td class="title-cell"> FLORIDA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 495</td>
+                            <td class="table-total-send-amound">$ 245,003.96</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">4 - GEORGIA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Portal Brazil Inc.</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">467</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 231,284.49</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Five Star 786, Inc.</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">60</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 134,986.06</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Ione International Services Inc</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">6</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 3,890.01</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pontual Money Transfer</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">8</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 4,529.75</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Portal Brazil Inc.</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">294</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 120,839.93</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Expeditions Travel LLC</td>
+                            <td class="title-cell">GEORGIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">4</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 2,450.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> GEORGIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 1114</td>
+                            <td class="table-total-send-amound">$ 588,331.13</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">5 - HAWAII</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">6 - ILLINOIS</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">7 - LOUISIANA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">M&amp;P Servicios Hispanos LLC</td>
+                            <td class="title-cell">LOUISIANA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">101</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 51,256.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brazilian Market Cafe</td>
+                            <td class="title-cell">LOUISIANA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">272</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 260,202.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Trade Taylors LLC</td>
+                            <td class="title-cell"> LOUISIANA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 373</td>
+                            <td class="table-total-send-amound">$ 311,458.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">8 - MARYLAND</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">9 - MASSACHUSETTS</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Big Boi Meat Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">31</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 12,774.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Voo Livre Travel</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">171</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 97,420.63</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Zion Multi-Services, Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">103</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 46,687.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brasil Coffee Shop</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">883</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 432,474.22</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Central Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">366</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 148,956.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Modelo Butcher Market, Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">85</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 40,138.85</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">M B Travel Services Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">383</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 178,998.66</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">El Valle de la Sultana Market Inc</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">66</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 18,628.40</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">JN Wireless  </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">523</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 230,840.06</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Mineirao One Stop Mart, Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">150</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 58,349.87</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Island Star </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">808</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 591,967.20</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brazilian Market  </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">12</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 7,332.54</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Silva Brazil Store</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">124</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 28,464.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Sandra Enterprise Service </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">262</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 116,952.65</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">J and S Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">44</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 31,272.01</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Copacabana Import &amp; Export </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">488</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 286,637.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Worcester Bakery Inc</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">546</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 256,741.02</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Made in Brazil Express, Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">761</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 338,020.88</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Miranda Bread</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">976</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 387,814.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Falmouth Auto Center Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">42</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 24,106.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Via Brazil</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">94</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 66,992.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Vera Moreno</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">2167</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 1,244,957.54</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Mundo Evangelico </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">49</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 17,352.84</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">JR &amp; D Services, Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">156</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 168,603.02</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Super JC Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">684</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 363,068.05</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Sky Braz Store</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">200</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 129,236.92</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Rivainfo Solutions</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">138</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 63,036.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brasil Brazil, Inc</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">989</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 569,536.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Brothers A. L. &amp; C, Inc</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">374</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 129,514.37</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Miranda Services Inc</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">3</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 1,046.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Sulamerica Enterprise </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">331</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 109,120.21</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Via Brasil</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">26</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 9,963.50</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Miranda Bread </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">535</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 291,767.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Rodrigues Moreira</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">126</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 49,776.25</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">PM Travel Agency </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">263</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 159,827.22</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pontual Money Transfer</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">34</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 22,579.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Globo Travel Tours Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">34</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 15,823.60</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Mineirao Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">47</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 25,838.46</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Bem Bonita Inc.</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">25</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 13,545.30</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Intercontinental Enterprises </td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">672</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 363,237.10</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Silvas Brazilian Market</td>
+                            <td class="title-cell">MASSACHUSETTS</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">69</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 30,850.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Do Brazil Market, Inc</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Helloguan Flower Design, Inc.</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Discovery Insurance Agency LLC</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Savetime Wireless</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">I-insurance Group Inc</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Point Brazil LLC</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Rio Brazilian Fashion</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">O Pao Nosso Cafe</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Peroni&#39;s Jewelry</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Miranda Bread</td>
+                            <td class="title-cell"> MASSACHUSETTS</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 15137</td>
+                            <td class="table-total-send-amound">$ 7,999,052.61</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">10 - MISSISSIPPI</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">11 - MONTANA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">12 - NEVADA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">13 - NEW HAMPSHIRE</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">DI2 Enterprises LLC</td>
+                            <td class="title-cell">NEW HAMPSHIRE</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">2</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 605.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Cales Auto Sales Incorporated</td>
+                            <td class="title-cell">NEW HAMPSHIRE</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">21</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 14,702.33</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 543</td>
+                            <td class="table-total-send-amound">$ 316,255.94</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">14 - NEW JERSEY</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Amazonia Brasil Corp.</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">47</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 19,038.25</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">New World Transfer LLC</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">19</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 4,506.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Meat Shoppers Supermarket LLP</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">79</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 36,695.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Pontal Brazil LLC</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">476</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 147,676.87</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Raizes Top Hair Salon</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">14</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 8,241.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Total Brazil Products LLC</td>
+                            <td class="title-cell">NEW JERSEY</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">26</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 35,499.32</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> NEW JERSEY</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">ATG 3 LLC</td>
+                            <td class="title-cell"> NEW JERSEY</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 1375</td>
+                            <td class="table-total-send-amound">$ 500,847.18</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">15 - NEW MEXICO</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">16 - NORTH CAROLINA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Supermercado Brasileiro LLC</td>
+                            <td class="title-cell">NORTH CAROLINA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">98</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 44,754.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> NORTH CAROLINA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 98</td>
+                            <td class="table-total-send-amound">$ 44,754.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">17 - NORTH DAKOTA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">18 - OHIO</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">19 - OREGON</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">20 - PENNSYLVANIA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Meat Shoppers Plus LLC</td>
+                            <td class="title-cell">PENNSYLVANIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">194</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 94,441.22</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">By Brazil</td>
+                            <td class="title-cell">PENNSYLVANIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">113</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 220,486.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">100% Made in Brazil LLC</td>
+                            <td class="title-cell">PENNSYLVANIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">100</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 36,449.66</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">By Brazil</td>
+                            <td class="title-cell">PENNSYLVANIA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">3</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 8,000.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">WireCash.com</td>
+                            <td class="title-cell"> PENNSYLVANIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Bull Boi LLC</td>
+                            <td class="title-cell"> PENNSYLVANIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Group JL LLC</td>
+                            <td class="title-cell"> PENNSYLVANIA</td>
+                                <td class="transactions-cell" style="text-align:right;  ">0</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 0.00</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 616</td>
+                            <td class="table-total-send-amound">$ 450,037.93</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">21 - RHODE ISLAND</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">22 - SOUTH CAROLINA</td>
+                    </tr>
+                        <tr>
+                            <td class="title-cell">Tropical Market LLC</td>
+                            <td class="title-cell">SOUTH CAROLINA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">1206</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 782,369.14</td>
+                        </tr>
+                        <tr>
+                            <td class="title-cell">Meninas of Minas LLC</td>
+                            <td class="title-cell">SOUTH CAROLINA</td>
+
+                                <td class="transactions-cell" style="text-align:right;  ">13</td>
+                                <td class="sendamound-cell" style="text-align:right;">$ 8,526.26</td>
+                        </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 1219</td>
+                            <td class="table-total-send-amound">$ 790,895.40</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">23 - SOUTH DAKOTA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">24 - UTAH</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">25 - VIRGINIA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">26 - WASHINGTON</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">27 - WISCONSIN</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-title" colspan="4">AGENT (active)</td>
+                    </tr>
+
+
+<tr>
+        <td rowspan="2" class="transactions-amount-table-border-full">Agent</td>
+        <td rowspan="2" class="transactions-amount-table-border-full">State</td>
+
+        <td colspan="2" class="transactions-amount-table-border-full">2017
+
+            <label> through May</label>
+        </td>
+</tr>
+<tr>
+
+        <td class="transactions-cell-title">Transactions</td>
+        <td class="sendamound-cell-title">Send Amount</td>
+</tr>                    <tr>
+                        <td class="table-title" colspan="4">28 - WYOMING</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-total-border-full">Total</td>
+                            <td class="table-total-transactions"> 0</td>
+                            <td class="table-total-send-amound">$ 0.00</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+
+        </tbody>
+    </table>
+
+
+    <div>
+        <span>
+            This is a financial report. Check the details about how the report numbers are calculated below:
+            <br />
+            Total number of transactions consists of number of transactions placed minus number of transactions cancelled in the same date.
+            <br />
+            Orders B2B USEND, B2B AGENT, B2B PMT are not showed on USEND, AGENT, PMT
+
+        </span>
+    </div>
+
+</body>
+</html>
