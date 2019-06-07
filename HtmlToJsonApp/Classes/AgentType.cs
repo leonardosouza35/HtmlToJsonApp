@@ -5,11 +5,11 @@ namespace HtmlToJsonApp
     public class AgentType
     {
         public string AgentTypeDescription { get; set; }
-        public List<Year> Year { get; set; }
+        public List<Year> Years { get; set; }
 
         public AgentType()
         {
-            Year = new List<Year>();
+            Years = new List<Year>();
         }
 
     }

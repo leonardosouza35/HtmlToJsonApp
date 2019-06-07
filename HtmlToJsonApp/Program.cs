@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -9,70 +10,119 @@ namespace HtmlToJsonApp
         static void Main(string[] args)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport.html");
+            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-Full.html");
 
-            var tBody = doc.DocumentNode.SelectSingleNode("//tbody");
-            //var TagsTr = tBody.ChildNodes.Where(t => t.Name.ToLower() == "tr");
             var TagsTr = doc.DocumentNode.SelectSingleNode("//tbody//tr");
 
             MailBusiness mailBusiness = new MailBusiness();
-            Agent agent = null;
+            Section section = null;
+            AgentType agentType = null;
+            var years = new List<Year>();
+            var year = new Year();
+            var count = 0;
+
 
             var periodLabel = string.Empty;
 
 
-            foreach(var tr in doc.DocumentNode.SelectNodes("//tbody//tr"))
+            foreach (var tr in doc.DocumentNode.SelectNodes("//tbody//tr"))
             {
-                //var tds = tr.ChildNodes.Where(t => t.Name.ToLower() == "td");
                 foreach (var td in tr.SelectNodes("td"))
                 {
-                    var label = td.ChildNodes.FirstOrDefault(n => n.Name.ToLower() == "label");
-                    if (label != null)
-                    {
-                        periodLabel = label.InnerText;
-                        agent = new Agent();
-                        agent.Period = label.InnerText;                        
-                    }
-                    else if(td.GetAttributeValue("class", "").Trim() == "table-title")
-                    {                        
-                        if (agent != null 
-                            && td.InnerText.IndexOf("AGENT") == -1)
-                        {
-                            agent.State = td.InnerText;                            
-                        }
-                    }
-                    else
-                    {
-                        if(td.GetAttributeValue("class", "").Trim() == "title-cell")
-                        {
-                            if (string.IsNullOrEmpty(agent.AgentName))
-                                agent.AgentName = td.InnerText;
-                            else
-                                agent.State = td.InnerText;
 
-                        }else if (td.GetAttributeValue("class", "").Trim() == "transactions-cell")
-                        {
-                            agent.Transactions = System.Convert.ToInt32(td.InnerText);   
-                            
-                        }else if (td.GetAttributeValue("class", "").Trim() == "sendamound-cell")
-                        {
-                            agent.SendAmount = td.InnerText;
-                            mailBusiness.Agents.Add(agent);
-                            agent = new Agent();
-                            agent.Period = periodLabel;
-                        }
+                    if (td.GetAttributeValue("class", "").Contains("json-export-section"))
+                    {
+                        section = new Section(td.InnerText);
+                        mailBusiness.Sections.Add(section);
+                        continue;
 
                     }
-                                                            
+
+                    if (td.GetAttributeValue("class", "").Contains("json-year-export"))
+                    {
+                        var tdValue = td.InnerText.Trim();
+                        if (!string.IsNullOrEmpty(tdValue))
+                        {
+                            var label = td.ChildNodes.FirstOrDefault(n => n.Name.ToLower() == "label");
+                            if (label != null)
+                            {
+                                var throughText = label.InnerText.Trim();
+                                tdValue = tdValue.Substring(0,4) + " " + throughText;
+                            }
+                            section.Years.Add(new Year() { Value = tdValue });
+                            continue;
+                        }
+                    }
+
+
+                    if (td.GetAttributeValue("class", "").Contains("json-title-cell"))
+                    {
+                        agentType = new AgentType();
+                        section.Agents.Add(agentType);
+                        agentType.AgentTypeDescription = td.InnerText;
+                        count = 0;
+                        continue;
+                        
+                    }
+
+                    if (td.GetAttributeValue("class", "").Trim() == "transactions-cell"){
+                        year = new Year();
+                        year.Transactions = !string.IsNullOrEmpty(td.InnerText) ? int.Parse(td.InnerText) : 0;                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Trim() == "sendamound-cell")
+                    {
+                        year.SendAmount = td.InnerText;
+
+                        try { year.Value = section.Years[count].Value;  } catch { }
+
+                        count++;
+                        agentType.Years.Add(year);                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("json-table-total"))
+                    {
+                        agentType = new AgentType();
+                        section.Agents.Add(agentType);
+                        agentType.AgentTypeDescription = td.InnerText;
+                        count = 0;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Trim() == "table-total-transactions")
+                    {
+                        year = new Year();
+                        year.Transactions = !string.IsNullOrEmpty(td.InnerText) ? int.Parse(td.InnerText) : 0;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Trim() == "table-total-send-amound")
+                    {
+                        year.SendAmount = td.InnerText;
+
+                        try { year.Value = section.Years[count].Value; } catch { }
+
+                        count++;
+                        agentType.Years.Add(year);
+                        continue;
+                    }
+
+
+
                 }
 
-                //if (agent != null 
-                //    && !string.IsNullOrEmpty(agent.SendAmount))
-                //    mailBusiness.Agents.Add(agent);
-             }
+            }
 
+            SerializeObject(mailBusiness);
+
+        }
+
+        private static void SerializeObject(MailBusiness mailBusiness)
+        {
             var jsonSerializer = new JsonSerializer();
-            var json = JsonConvert.SerializeObject(mailBusiness,Formatting.Indented);
+            var json = JsonConvert.SerializeObject(mailBusiness, Formatting.Indented);
 
             var fileName = @"C:\integrations\json\file.json";
 
@@ -81,8 +131,6 @@ namespace HtmlToJsonApp
 
             using (var wr = new StreamWriter(fileName))
                 wr.Write(json);
-           
-
-            }                                
+        }
     }
 }

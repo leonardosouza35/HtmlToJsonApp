@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HtmlToJsonApp
 {
     public class Section
     {
-        public List<AgentType> AgentType { get; set; }
-        public List<Total> Total { get; set; }
-
-        public Section()
+        public string SectionName { get; set; }
+        public List<AgentType> Agents { get; set; }        
+        [JsonIgnore]
+        public List<Year> Years { get; set; }                
+        public Section(string sectionName)
         {
-            AgentType = new List<AgentType>();
-            Total = new List<Total>();
+            SectionName = sectionName;
+            Agents = new List<AgentType>();            
+            Years = new List<Year>();
         }
     }
 }
