@@ -49,8 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent.cs" />
-    <Compile Include="MailBusiness.cs" />
+    <Compile Include="Classes\Total .cs" />
+    <Compile Include="Classes\Year.cs" />
+    <Compile Include="Classes\AgentType.cs" />
+    <Compile Include="Classes\Section.cs" />
+    <Compile Include="Classes\Agent.cs" />
+    <Compile Include="Classes\MailBusiness.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

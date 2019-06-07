@@ -4,11 +4,11 @@ namespace HtmlToJsonApp
 {
     public class MailBusiness
     {
-        public List<Agent> Agents { get; set; }
+        public List<Section> Sections { get; set; }
 
         public MailBusiness()
         {
-            Agents = new List<Agent>();
+            Sections = new List<Section>();
         }
     }
 
