@@ -16,7 +16,7 @@ namespace HtmlToJsonApp
 
             MailBusiness mailBusiness = new MailBusiness();
             Section section = null;
-            AgentType agentType = null;
+            BusinessModel agentType = null;
             var years = new List<Year>();
             var year = new Year();
             var count = 0;
@@ -57,8 +57,8 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Contains("json-title-cell"))
                     {
-                        agentType = new AgentType();
-                        section.Agents.Add(agentType);
+                        agentType = new BusinessModel();
+                        section.BusinessModels.Add(agentType);
                         agentType.AgentTypeDescription = td.InnerText;
                         count = 0;
                         continue;
@@ -84,8 +84,8 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Contains("json-table-total"))
                     {
-                        agentType = new AgentType();
-                        section.Agents.Add(agentType);
+                        agentType = new BusinessModel();
+                        section.BusinessModels.Add(agentType);
                         agentType.AgentTypeDescription = td.InnerText;
                         count = 0;
                         continue;

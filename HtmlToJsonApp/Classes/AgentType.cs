@@ -2,12 +2,12 @@
 
 namespace HtmlToJsonApp
 {
-    public class AgentType
+    public class BusinessModel
     {
         public string AgentTypeDescription { get; set; }
         public List<Year> Years { get; set; }
 
-        public AgentType()
+        public BusinessModel()
         {
             Years = new List<Year>();
         }
