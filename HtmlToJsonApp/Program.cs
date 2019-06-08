@@ -30,15 +30,16 @@ namespace HtmlToJsonApp
                 foreach (var td in tr.SelectNodes("td"))
                 {
 
-                    if (td.GetAttributeValue("class", "").Contains("json-export-section"))
+                    if (td.GetAttributeValue("class", "").Trim() == "table-title")
                     {
                         section = new Section(td.InnerText);
                         mailBusiness.Sections.Add(section);
                         continue;
 
                     }
-
-                    if (td.GetAttributeValue("class", "").Contains("json-year-export"))
+                    
+                    if (td.GetAttributeValue("class", "").Trim() == "transactions-amount-table-border-full"
+                        && !td.GetAttributeValue("class", "").Contains("ignore-first-cell-json"))
                     {
                         var tdValue = td.InnerText.Trim();
                         if (!string.IsNullOrEmpty(tdValue))
@@ -55,7 +56,7 @@ namespace HtmlToJsonApp
                     }
 
 
-                    if (td.GetAttributeValue("class", "").Contains("json-title-cell"))
+                    if (td.GetAttributeValue("class", "").Trim() == "title-cell")
                     {
                         agentType = new BusinessModel();
                         section.BusinessModels.Add(agentType);
@@ -65,7 +66,8 @@ namespace HtmlToJsonApp
                         
                     }
 
-                    if (td.GetAttributeValue("class", "").Trim() == "transactions-cell"){
+                    if (td.GetAttributeValue("class", "").Trim() == "transactions-cell")
+                    {
                         year = new Year();
                         year.Transactions = !string.IsNullOrEmpty(td.InnerText) ? int.Parse(td.InnerText) : 0;                        
                         continue;
@@ -82,7 +84,7 @@ namespace HtmlToJsonApp
                         continue;
                     }
 
-                    if (td.GetAttributeValue("class", "").Contains("json-table-total"))
+                    if (td.GetAttributeValue("class", "").Trim() == "table-total-border-full")
                     {
                         agentType = new BusinessModel();
                         section.BusinessModels.Add(agentType);
