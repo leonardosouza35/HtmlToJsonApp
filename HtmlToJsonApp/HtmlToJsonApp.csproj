@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="html\MailBusinessReport-2.html" />
+    <Content Include="html\MailBusinessReport-3.html" />
     <Content Include="html\MailBusinessReport-Full.html" />
     <Content Include="html\MailBusinessReport.html" />
   </ItemGroup>

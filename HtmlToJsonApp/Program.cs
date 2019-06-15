@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace HtmlToJsonApp
         static void Main(string[] args)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-Full.html");
+            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-3.html");
 
             var TagsTr = doc.DocumentNode.SelectSingleNode("//tbody//tr");
 
@@ -37,9 +39,9 @@ namespace HtmlToJsonApp
                         continue;
 
                     }
-                    
-                    if (td.GetAttributeValue("class", "").Trim() == "transactions-amount-table-border-full"
-                        && !td.GetAttributeValue("class", "").Contains("ignore-first-cell-json"))
+
+                    if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full")
+                        && IsPermmitedClassAttribute(td))
                     {
                         var tdValue = td.InnerText.Trim();
                         if (!string.IsNullOrEmpty(tdValue))
@@ -48,7 +50,7 @@ namespace HtmlToJsonApp
                             if (label != null)
                             {
                                 var throughText = label.InnerText.Trim();
-                                tdValue = tdValue.Substring(0,4) + " " + throughText;
+                                tdValue = tdValue.Substring(0, 4) + " " + throughText;
                             }
                             section.Years.Add(new Year() { Value = tdValue });
                             continue;
@@ -63,13 +65,13 @@ namespace HtmlToJsonApp
                         agentType.AgentTypeDescription = td.InnerText;
                         count = 0;
                         continue;
-                        
+
                     }
 
                     if (td.GetAttributeValue("class", "").Trim() == "transactions-cell")
                     {
                         year = new Year();
-                        year.Transactions = !string.IsNullOrEmpty(td.InnerText) ? int.Parse(td.InnerText) : 0;                        
+                        year.Transactions = !string.IsNullOrEmpty(td.InnerText) ? int.Parse(td.InnerText) : 0;
                         continue;
                     }
 
@@ -77,10 +79,14 @@ namespace HtmlToJsonApp
                     {
                         year.SendAmount = td.InnerText;
 
-                        try { year.Value = section.Years[count].Value;  } catch { }
+                        try {
+                            year.Value = section.Years[count].Value;
+                            count++;
+                            agentType.Years.Add(year);
+                        }
+                        catch {
+                        }
 
-                        count++;
-                        agentType.Years.Add(year);                        
                         continue;
                     }
 
@@ -119,6 +125,22 @@ namespace HtmlToJsonApp
 
             SerializeObject(mailBusiness);
 
+        }
+
+        private static bool IsPermmitedClassAttribute(HtmlNode td)
+        {
+
+            if (td.GetAttributeValue("class", "").Contains("countrystate-country")
+                || td.GetAttributeValue("class", "").Contains("countrystate-state")
+                || td.GetAttributeValue("class", "").Contains("agentstate-agent")
+                || td.GetAttributeValue("class", "").Contains("agentstate-state")
+                || td.GetAttributeValue("class", "").Contains("country")
+                || td.GetAttributeValue("class", "").Contains("state")
+                || td.GetAttributeValue("class", "").Contains("agent"))
+                return false;
+
+            return true;
+          
         }
 
         private static void SerializeObject(MailBusiness mailBusiness)
