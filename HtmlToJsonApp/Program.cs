@@ -12,7 +12,7 @@ namespace HtmlToJsonApp
         static void Main(string[] args)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-3.html");
+            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-4.html");
 
             var TagsTr = doc.DocumentNode.SelectSingleNode("//tbody//tr");
 
@@ -34,15 +34,20 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Trim() == "table-title")
                     {
-                        section = new Section(td.InnerText);
-                        mailBusiness.Sections.Add(section);
-                        continue;
+                        if (!td.InnerText.Contains("AGENT (active)"))
+                        {
+                            section = new Section(td.InnerText);
+                            mailBusiness.Sections.Add(section);
+                            continue;
+                        }
 
                     }
 
-                    if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full")
-                        && IsPermmitedClassAttribute(td))
-                    {
+                    
+                    
+                    if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full") 
+                        && !IsByPassedTag(td))                       
+                    {                                                                            
                         var tdValue = td.InnerText.Trim();
                         if (!string.IsNullOrEmpty(tdValue))
                         {
@@ -53,7 +58,7 @@ namespace HtmlToJsonApp
                                 tdValue = tdValue.Substring(0, 4) + " " + throughText;
                             }
                             section.Years.Add(new Year() { Value = tdValue });
-                            continue;
+                            
                         }
                     }
 
@@ -127,7 +132,7 @@ namespace HtmlToJsonApp
 
         }
 
-        private static bool IsPermmitedClassAttribute(HtmlNode td)
+        private static bool IsByPassedTag(HtmlNode td)
         {
 
             if (td.GetAttributeValue("class", "").Contains("countrystate-country")
@@ -137,10 +142,9 @@ namespace HtmlToJsonApp
                 || td.GetAttributeValue("class", "").Contains("country")
                 || td.GetAttributeValue("class", "").Contains("state")
                 || td.GetAttributeValue("class", "").Contains("agent"))
-                return false;
+                return true;
 
-            return true;
-          
+            return false;
         }
 
         private static void SerializeObject(MailBusiness mailBusiness)
