@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\SubSection.cs" />
     <Compile Include="Classes\Total .cs" />
     <Compile Include="Classes\Year.cs" />
     <Compile Include="Classes\AgentType.cs" />
