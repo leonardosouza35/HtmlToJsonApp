@@ -11,7 +11,7 @@ namespace HtmlToJsonApp
     {
         static void Main(string[] args)
         {
-            var doc = new HtmlAgilityPack.HtmlDocument();
+            var doc = new HtmlDocument();
             doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-6.html");
 
             var TagsTr = doc.DocumentNode.SelectSingleNode("//tbody//tr");
@@ -20,7 +20,7 @@ namespace HtmlToJsonApp
             Section section = null;
             Total total =null;
             SubSection subSection = null;
-            BusinessModel agentType = null;
+            BusinessModel agentType = null;           
             var years = new List<Year>();
             var year = new Year();
             var count = 0;
@@ -42,9 +42,15 @@ namespace HtmlToJsonApp
                     }
 
                                         
-                    if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full") 
-                        && !IsByPassedTag(td))                       
-                    {                                                                            
+                    if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full"))                       
+                    {
+                        if (IsByPassedTag(td)){
+
+                            if (!string.IsNullOrEmpty(td.InnerText))
+                                section.HeaderDescription += " " + td.InnerText;
+
+                            continue;
+                        }
                         var tdValue = td.InnerText.Trim();
                         if (!string.IsNullOrEmpty(tdValue))
                         {
@@ -74,16 +80,19 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Trim() == "title-cell")
                     {
+                        
                         agentType = new BusinessModel();
 
-                        if (subSection == null)                        
-                            subSection = CreateSubSection(section, subSection, td);                                                    
+                        if (subSection == null){
+                            subSection = CreateSubSection(section, subSection, td);
+                            subSection.Name = "";
+                        }
 
                         subSection.BusinessModels.Add(agentType);
                         agentType.Description = td.InnerText;
                         count = 0;
                         continue;
-
+                        
                     }
 
                     if (td.GetAttributeValue("class", "").Trim() == "transactions-cell")
@@ -114,7 +123,7 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Trim() == "table-total-border-full")
                     {
-                        subSection = null;
+                        subSection = null;                        
                         total = CreateTotalSection(section, total, td);                                                
                         count = 0;
                         continue;
@@ -153,7 +162,7 @@ namespace HtmlToJsonApp
 
         private static SubSection CreateSubSection(Section section, SubSection subSection, HtmlNode td)
         {
-            subSection = new SubSection(td.InnerText);
+            subSection = new SubSection(section.SectionName == "Total" ? "" : td.InnerText);
             section.SubSection.Add(subSection);
             return subSection;
         }
