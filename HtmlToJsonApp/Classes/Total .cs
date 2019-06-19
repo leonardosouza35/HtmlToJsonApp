@@ -4,11 +4,11 @@ namespace HtmlToJsonApp
 {
     public class Total
     {
-        public List<Year> Year { get; set; }
+        public List<Year> Years { get; set; }
 
         public Total()
         {
-            Year = new List<Year>();
+            Years = new List<Year>();
         }
     }
 }

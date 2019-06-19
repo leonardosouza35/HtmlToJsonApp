@@ -10,12 +10,14 @@ namespace HtmlToJsonApp
         [JsonIgnore]
         public List<Year> Years { get; set; }
         public List<SubSection> SubSection { get; set; }
+        public List<Total> Total { get; set; }
 
         public Section(string sectionName)
         {
             SectionName = sectionName;
             SubSection = new List<SubSection>();
             Years = new List<Year>();
+            Total = new List<Total>();
         }
     }
 }

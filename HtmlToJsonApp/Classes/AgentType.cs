@@ -4,7 +4,7 @@ namespace HtmlToJsonApp
 {
     public class BusinessModel
     {
-        public string AgentTypeDescription { get; set; }
+        public string Description { get; set; }
         public List<Year> Years { get; set; }
 
         public BusinessModel()

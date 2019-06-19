@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace HtmlToJsonApp
 {
     public class SubSection
-    {
-        [JsonIgnore]
+    {        
         public string Name { get; set; }
 
         public List<BusinessModel> BusinessModels { get; set; }        

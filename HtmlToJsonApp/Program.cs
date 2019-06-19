@@ -18,6 +18,7 @@ namespace HtmlToJsonApp
 
             MailBusiness mailBusiness = new MailBusiness();
             Section section = null;
+            Total total =null;
             SubSection subSection = null;
             BusinessModel agentType = null;
             var years = new List<Year>();
@@ -65,7 +66,7 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "") == "table-title subsection")                        
                     {
-                        CreateSubSection(section,subSection, td);                        
+                        subSection = CreateSubSection(section,subSection, td);                        
                         continue;
                     }
 
@@ -79,7 +80,7 @@ namespace HtmlToJsonApp
                             subSection = CreateSubSection(section, subSection, td);                                                    
 
                         subSection.BusinessModels.Add(agentType);
-                        agentType.AgentTypeDescription = td.InnerText;
+                        agentType.Description = td.InnerText;
                         count = 0;
                         continue;
 
@@ -113,13 +114,8 @@ namespace HtmlToJsonApp
 
                     if (td.GetAttributeValue("class", "").Trim() == "table-total-border-full")
                     {
-                        agentType = new BusinessModel();
-
-                        if (subSection == null)
-                            subSection = CreateSubSection(section, subSection, td);
-                        
-                        subSection.BusinessModels.Add(agentType);
-                        agentType.AgentTypeDescription = td.InnerText;
+                        subSection = null;
+                        total = CreateTotalSection(section, total, td);                                                
                         count = 0;
                         continue;
                     }
@@ -138,19 +134,10 @@ namespace HtmlToJsonApp
                         try {
 
                             year.YearDescription = section.Years[count].YearDescription;
-                            count++;
-
-                            //if (subSection != null)
-                            //    year.YearDescription = subSection.Years[count].YearDescription;
-                            //else
-                            //    year.YearDescription = section.Years[count].YearDescription;
-
+                            count++;                          
                         } catch { }
 
-                        
-                        agentType.Years.Add(year);
-                        //section = null;
-                        subSection = null;
+                        total.Years.Add(year);                        
                         continue;
                     }
 
@@ -169,6 +156,14 @@ namespace HtmlToJsonApp
             subSection = new SubSection(td.InnerText);
             section.SubSection.Add(subSection);
             return subSection;
+        }
+
+
+        private static Total CreateTotalSection(Section section, Total total, HtmlNode td)
+        {
+            total = new Total();
+            section.Total.Add(total);
+            return total;
         }
 
         private static bool IsByPassedTag(HtmlNode td)
