@@ -12,7 +12,7 @@ namespace HtmlToJsonApp
         static void Main(string[] args)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-5.html");
+            doc.Load(@"C:\Projetos\HtmlToJsonApp\HtmlToJsonApp\html\MailBusinessReport-6.html");
 
             var TagsTr = doc.DocumentNode.SelectSingleNode("//tbody//tr");
 
@@ -33,17 +33,14 @@ namespace HtmlToJsonApp
                 foreach (var td in tr.SelectNodes("td"))
                 {
 
-                    if (td.GetAttributeValue("class", "").Contains("table-title")
-                        && td.GetAttributeValue("class", "").Contains("section"))
+                    if (td.GetAttributeValue("class", "") == "table-title section")
                     {
                         section = new Section(td.InnerText);
-                        subSection = null;
                         mailBusiness.Sections.Add(section);
-                        continue;                        
+                        continue;                                               
                     }
 
-                    
-                    
+                                        
                     if (td.GetAttributeValue("class", "").Contains("transactions-amount-table-border-full") 
                         && !IsByPassedTag(td))                       
                     {                                                                            
@@ -56,13 +53,17 @@ namespace HtmlToJsonApp
                                 var throughText = label.InnerText.Trim();
                                 tdValue = tdValue.Substring(0, 4) + " " + throughText;
                             }
-                            section.Years.Add(new Year() { YearDescription = tdValue });
+
+                            if (subSection != null)
+                                subSection.Years.Add(new Year() { YearDescription = tdValue });
+                            else
+                                section.Years.Add(new Year() { YearDescription = tdValue });
+                            
                             
                         }
                     }
 
-                    if (td.GetAttributeValue("class", "").Contains("table-title")
-                        && td.GetAttributeValue("class", "").Contains("subsection"))
+                    if (td.GetAttributeValue("class", "") == "table-title subsection")                        
                     {
                         CreateSubSection(section,subSection, td);                        
                         continue;
@@ -74,7 +75,8 @@ namespace HtmlToJsonApp
                     {
                         agentType = new BusinessModel();
 
-                        subSection = CreateSubSection(section, subSection, td);
+                        if (subSection == null)                        
+                            subSection = CreateSubSection(section, subSection, td);                                                    
 
                         subSection.BusinessModels.Add(agentType);
                         agentType.AgentTypeDescription = td.InnerText;
@@ -95,7 +97,11 @@ namespace HtmlToJsonApp
                         year.SendAmount = td.InnerText;
 
                         try {
-                            year.YearDescription = section.Years[count].YearDescription;
+                            if (subSection != null && subSection.Years.Count > 0 )
+                                year.YearDescription = subSection.Years[count].YearDescription;
+                            else
+                                year.YearDescription = section.Years[count].YearDescription;
+
                             count++;
                             agentType.Years.Add(year);
                         }
@@ -108,7 +114,10 @@ namespace HtmlToJsonApp
                     if (td.GetAttributeValue("class", "").Trim() == "table-total-border-full")
                     {
                         agentType = new BusinessModel();
-                        subSection = CreateSubSection(section, subSection, td);
+
+                        if (subSection == null)
+                            subSection = CreateSubSection(section, subSection, td);
+                        
                         subSection.BusinessModels.Add(agentType);
                         agentType.AgentTypeDescription = td.InnerText;
                         count = 0;
@@ -126,10 +135,22 @@ namespace HtmlToJsonApp
                     {
                         year.SendAmount = td.InnerText;
 
-                        try { year.YearDescription = section.Years[count].YearDescription; } catch { }
+                        try {
 
-                        count++;
+                            year.YearDescription = section.Years[count].YearDescription;
+                            count++;
+
+                            //if (subSection != null)
+                            //    year.YearDescription = subSection.Years[count].YearDescription;
+                            //else
+                            //    year.YearDescription = section.Years[count].YearDescription;
+
+                        } catch { }
+
+                        
                         agentType.Years.Add(year);
+                        //section = null;
+                        subSection = null;
                         continue;
                     }
 
@@ -145,12 +166,8 @@ namespace HtmlToJsonApp
 
         private static SubSection CreateSubSection(Section section, SubSection subSection, HtmlNode td)
         {
-            if (subSection == null)
-            {
-                subSection = new SubSection(td.InnerText);
-                section.SubSection.Add(subSection);
-            }
-
+            subSection = new SubSection(td.InnerText);
+            section.SubSection.Add(subSection);
             return subSection;
         }
 

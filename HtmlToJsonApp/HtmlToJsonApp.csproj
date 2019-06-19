@@ -68,6 +68,7 @@
     <Content Include="html\MailBusinessReport-3.html" />
     <Content Include="html\MailBusinessReport-4.html" />
     <Content Include="html\MailBusinessReport-5.html" />
+    <Content Include="html\MailBusinessReport-6.html" />
     <Content Include="html\MailBusinessReport-Full.html" />
     <Content Include="html\MailBusinessReport.html" />
   </ItemGroup>
