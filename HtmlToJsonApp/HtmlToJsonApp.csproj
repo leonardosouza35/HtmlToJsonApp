@@ -49,21 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SubSection.cs" />
-    <Compile Include="Classes\Total .cs" />
-    <Compile Include="Classes\Year.cs" />
-    <Compile Include="Classes\AgentType.cs" />
-    <Compile Include="Classes\Section.cs" />
-    <Compile Include="Classes\Agent.cs" />
-    <Compile Include="Classes\MailBusiness.cs" />
+    <Compile Include="Model\BusinessModel\SubSection.cs" />
+    <Compile Include="Model\BusinessModel\Total .cs" />
+    <Compile Include="Model\BusinessModel\Year.cs" />
+    <Compile Include="Model\BusinessModel\AgentType.cs" />
+    <Compile Include="Model\BusinessModel\Section.cs" />
+    <Compile Include="Model\BusinessModel\Agent.cs" />
+    <Compile Include="Model\BusinessModel\MailBusiness.cs" />
+    <Compile Include="Model\DailyBusinessModel\BusinessModel\BusinessModelTotal.cs" />
+    <Compile Include="Model\DailyBusinessModel\BusinessModel\BusinessModel.cs" />
+    <Compile Include="Model\DailyBusinessModel\BusinessModel\BusinessType.cs" />
+    <Compile Include="Model\DailyBusinessModel\DailyBusiness.cs" />
+    <Compile Include="Model\DailyBusinessModel\PaymentAggregatorModel\PaymentAggregatorItem.cs" />
+    <Compile Include="Model\DailyBusinessModel\PaymentAggregatorModel\PaymentAggregatorModel.cs" />
+    <Compile Include="Model\DailyBusinessModel\StatesPerAgentModel\StatesPerAgentTotal.cs" />
+    <Compile Include="Model\DailyBusinessModel\StatesPerAgentModel\StatesPerAgentItem.cs" />
+    <Compile Include="Model\DailyBusinessModel\StatesPerAgentModel\StatesPerAgentModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\BusinessReport.cs" />
+    <Compile Include="Report\DailyBusinessReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="html\Daily\DailyBusiness.html" />
     <Content Include="html\MailBusinessReport-2.html" />
     <Content Include="html\MailBusinessReport-3.html" />
     <Content Include="html\MailBusinessReport-4.html" />
@@ -72,5 +84,6 @@
     <Content Include="html\MailBusinessReport-Full.html" />
     <Content Include="html\MailBusinessReport.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
