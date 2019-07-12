@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using HtmlAgilityPack;
 using HtmlToJsonApp.Model.DailyBusinessModel;
+using HtmlToJsonApp.Model.DailyBusinessModelS;
 using Newtonsoft.Json;
 
 namespace HtmlToJsonApp.Report
@@ -20,8 +20,15 @@ namespace HtmlToJsonApp.Report
             StatesPerAgentModel statesPerAgentModel =null;
             StatesPerAgentItem statesPerAgentItem = null;
 
-            PaymentAggregatorModel paymentAggregatorModel;
-            PaymentAggregatorItem paymentAggregatorItem;
+            PaymentAggregatorModel paymentAggregatorModel = null;
+            PaymentAggregatorItem paymentAggregatorItem = null;
+
+            CountriesPerAgentModel countriesPerAgentModel = null;
+            CountriesPerAgentItem countriesPerAgentItem = null;
+
+            CountryAndStatePerAgentModel countryAndStatePerAgentModel = null;
+            CountryAndStatePerAgentItem countryAndStatePerAgentItem = null;
+
 
             foreach (var tr in doc.DocumentNode.SelectNodes("//tbody//tr"))
             {
@@ -130,7 +137,7 @@ namespace HtmlToJsonApp.Report
 
                     #region PaymentAggregator
 
-                    if (td.GetAttributeValue("class", "").Contains("paymentAgregator"))
+                    if (td.GetAttributeValue("class", "").Contains("perPaymentAgregator"))
                     {
 
                         paymentAggregatorModel = new PaymentAggregatorModel();                        
@@ -138,17 +145,152 @@ namespace HtmlToJsonApp.Report
                         continue;
                     }
 
-                    if (td.GetAttributeValue("class", "").Contains("paymentAgregator"))
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorItem"))
                     {
 
-                        paymentAggregatorModel = new PaymentAggregatorModel();
-                        dailyBusiness.PaymentAggregatorModel.Add(paymentAggregatorModel);
+                        paymentAggregatorItem = new PaymentAggregatorItem();
+                        paymentAggregatorModel.Item.Add(paymentAggregatorItem);
+                        paymentAggregatorItem.Name = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorTransaction"))
+                    {
+                        paymentAggregatorItem.Transactions = td.InnerText;                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorSendAmount"))
+                    {
+                        paymentAggregatorItem.SendAmount = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorTotalHeader"))
+                    {
+                        paymentAggregatorModel.PaymentAggregatorTotal = new PaymentAggregatorTotal();
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorTotalTransactions"))
+                    {
+                        paymentAggregatorModel.PaymentAggregatorTotal.Transactions = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("paymentAgregatorTotalSendAmount"))
+                    {
+                        paymentAggregatorModel.PaymentAggregatorTotal.SendAmount = td.InnerText;
                         continue;
                     }
 
                     #endregion
 
+                    #region CountriesPerAgent
 
+                    if (td.GetAttributeValue("class", "").Contains("countriesPerAgent"))
+                    {
+                        countriesPerAgentModel = new CountriesPerAgentModel();
+                        countriesPerAgentModel.Model = td.InnerText;
+                        dailyBusiness.CountriesPerAgentModel.Add(countriesPerAgentModel);
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentItem"))
+                    {
+                        countriesPerAgentItem = new CountriesPerAgentItem();
+                        countriesPerAgentItem.Country = td.InnerText;
+                        countriesPerAgentModel.Item.Add(countriesPerAgentItem);
+                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentTransaction"))
+                    {                        
+                        countriesPerAgentItem.Transactions = td.InnerText;                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentSendAmount"))
+                    {
+                        countriesPerAgentItem.SendAmount = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentTotalHeader"))
+                    {
+                        countriesPerAgentModel.CountriesPerAgentTotal = new CountriesPerAgentTotal();
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentTotalTransaction"))
+                    {
+                        countriesPerAgentModel.CountriesPerAgentTotal.Transactions = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countriesAgentTotalSendAmount"))
+                    {
+                        countriesPerAgentModel.CountriesPerAgentTotal.SendAmount = td.InnerText;
+                        continue;
+                    }
+                    #endregion
+
+                    #region CountryAndStatePerAgent
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStatePerAgent"))
+                    {
+                        countryAndStatePerAgentModel = new CountryAndStatePerAgentModel();
+                        dailyBusiness.CountryAndStatePerAgentModel.Add(countryAndStatePerAgentModel);
+                        countryAndStatePerAgentModel.Model = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentItem1"))
+                    {
+                        countryAndStatePerAgentItem = new CountryAndStatePerAgentItem();
+                        countryAndStatePerAgentItem.Country = td.InnerText;
+                        countryAndStatePerAgentModel.Item.Add(countryAndStatePerAgentItem);
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentItem2"))
+                    {
+                        countryAndStatePerAgentItem.State = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentTransaction"))
+                    {
+                        countryAndStatePerAgentItem.Transactions = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentSendAmount"))
+                    {
+                        countryAndStatePerAgentItem.SendAmount = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentTotalHeader"))
+                    {
+                        countryAndStatePerAgentModel.CountryAndStatePerAgentTotal = new CountryAndStatePerAgentTotal();                        
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentTotalTransaction"))
+                    {
+                        countryAndStatePerAgentModel.CountryAndStatePerAgentTotal.Transactions = td.InnerText;
+                        continue;
+                    }
+
+                    if (td.GetAttributeValue("class", "").Contains("countryAndStateAgentTotalSendAmount"))
+                    {
+                        countryAndStatePerAgentModel.CountryAndStatePerAgentTotal.SendAmount = td.InnerText;
+                        continue;
+                    }
+
+                    #endregion 
                 }
             }
 
